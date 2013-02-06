@@ -1,0 +1,297 @@
+@charset "utf-8";
+/* CSS Document */
+
+body 
+{
+	background-color: #fed;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-family:Calibri, Verdana, Helvetica, sans-serif;
+	font-size:16px;
+	color:#210;
+	width:100%;
+	height:100%;
+	text-shadow: 0px 0px 1px #edc;
+}
+
+a:link 
+{
+	color: inherit;
+	text-decoration: none;
+}
+
+a:visited 
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover 
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+a:active 
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+p
+{
+	margin-top:0px;
+	margin-bottom:5px;
+}
+
+div.outer
+{
+	width:100%;
+	height:250px;
+	margin:auto;
+	background-color:#edc;
+	text-align:center;
+}
+
+div.outer img
+{
+	border-left:1px solid #cba;
+	border-right:1px solid #cba;
+}
+
+table.table
+{
+	border:1px solid #a98; 
+	width:100%;
+	padding:0px;
+	margin:0px; 
+	
+	-webkit-box-shadow: 0px 0px 10px #dcb;
+	-moz-box-shadow: 0px 0px 10px #dcb;
+
+}
+
+table.table tr.header
+{
+	font-weight:bold;
+	background-color:#edc;
+}
+
+table.table td
+{
+	border:1px solid #cba; 
+	padding:2px;
+}
+
+div.pre
+{
+	background-color:#edc;
+	padding:10px;
+	font-size:75%;
+	border:1px solid #dcb;
+	
+	-webkit-box-shadow: 0px 0px 10px #edc;
+	-moz-box-shadow: 0px 0px 10px #edc;
+}
+
+h1
+{
+	margin:0;
+	font-size:250%;
+	font-weight:normal;
+}
+
+h2
+{
+	margin:0;
+	font-size:200%;
+	font-weight:normal;
+}
+
+h3
+{
+	margin:0;
+	font-size:160%;
+	font-weight:normal;
+}
+
+h4
+{
+	margin:0;
+	font-size:150%;
+	font-weight:normal;
+}
+
+div.narrow
+{
+	width:800px;
+	margin:auto;
+	padding-top:10px;
+}
+
+div.narrow ul
+{
+	padding:0;
+	margin:0;
+	margin-bottom:10px;
+}
+
+div.narrow ul li
+{
+	color:#dcb;
+	display:inline;
+	padding:0;
+	margin:0;
+}
+
+div.narrow span.here
+{
+	color:#321;
+}
+
+div.narrow a:link 
+{
+	color: #f60;
+	text-decoration: none;
+}
+
+div.narrow a:visited 
+{
+	color: #f60;
+	text-decoration: none;
+}
+
+div.narrow a:hover 
+{
+	color: #e50;
+	text-decoration:none;
+}
+
+div.narrow a:active 
+{
+	color: #d40;
+	text-decoration: none;
+}
+
+div.hidden
+{
+	display:none;
+}
+
+div.visible
+{
+	display:block;
+}
+
+div.wide
+{
+	width:775px;
+	margin:auto;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+div.wide p img
+{
+	-webkit-box-shadow: 0px 0px 10px #dcb;
+	-moz-box-shadow: 0px 0px 10px #dcb;
+}
+
+div.wide h3 a:link 
+{
+	padding:1px 2px 1px 2px;
+	background-color:#edc;
+	text-decoration: none;
+}
+
+div.wide h3 a:visited 
+{
+	padding:1px 2px 1px 2px;
+	background-color:#edc;
+	text-decoration: none;
+}
+
+div.wide h3 a:hover 
+{
+	padding:1px 2px 1px 2px;
+	background-color:#dcb;
+	text-decoration: none;
+}
+
+div.wide h3 a:active 
+{
+	padding:1px 2px 1px 2px;
+	background-color:#cba;
+	text-decoration: none;
+}
+
+div.wide p a:link, div.wide ul a:link, div.wide table a:link, div.wide ol a:link 
+{
+	padding:1px 2px 1px 2px;
+	background-color:#edc;
+	text-decoration: none;
+}
+
+div.wide p a:visited, div.wide ul a:visited, div.wide table a:visited, div.wide ol a:visited
+{
+	padding:1px 2px 1px 2px;
+	background-color:#edc;
+	text-decoration: none;
+}
+
+div.wide p a:hover, div.wide ul a:hover, div.wide table a:hover, div.wide ol a:hover
+{
+	padding:1px 2px 1px 2px;
+	background-color:#dcb;
+	text-decoration:none;
+}
+
+div.wide p a:active, div.wide ul a:active, div.wide table a:active, div.wide ol a:active
+{
+	padding:1px 2px 1px 2px;
+	background-color:#cba;
+	text-decoration: none;
+}
+
+div.wide p.top
+{
+	padding-bottom:30px;
+}
+
+hr
+{
+	height:1px;
+	border:0;
+	background-color:#cba;
+}
+
+.italic
+{
+	font-style:italic;
+}
+
+.underlined
+{
+	text-decoration:underline;
+}
+
+.token
+{
+	font-family:"Courier New", Courier, monospace;
+}
+
+.shaolin
+{
+	color:#f60;
+}
+
+a:hover .shaolin
+{
+}
+
+.bold
+{
+	font-weight:bold;
+}

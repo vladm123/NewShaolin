@@ -1,0 +1,553 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="copyright" content="(c) 2009 2010 Codrin Diţu &amp; Vlad Manea" />
+        <meta name="description" content="documentaţia proiectului newshaolin, realizat şi promovat ca proiect final la disciplina Reţele de Calculatoare de studenţii Codrin Diţu &amp; Vlad Manea" />
+		<meta name="author" content="Vlad Manea" />
+		<meta name="keywords" content="proiect, Reţele de Calculatoare, ştiri, newshaolin, NewsC, NewsS, Codrin Diţu, Vlad Manea, Facultatea de Informatică, Iaşi, România, FII" />
+		<meta name="robots" content="all, index, follow" />
+		<title>newshaolin | comunicare</title>
+		<link rel="stylesheet" href="style/index.css" />
+</head>
+<body>
+    <div class="wide">
+		<h1><a href="index.html">new<span class="shaolin">shaolin</span></a></h1>
+	</div>
+    <div class="outer">
+      	<img src="data/communication.jpg" alt="image" width="950" height="250" />        
+	</div>
+    <div class="narrow">
+        <ul type="disc">
+            <li>» <a href="index.html">acasă</a> |</li>
+            <li> <a href="problem.html">problemă</a> →</li>
+            <li> <a href="solution.html">soluţie</a> |</li>
+            <li> <span class="here">comunicare</span> |</li>
+            <li> <a href="client.html">client</a> &amp;</li>
+            <li> <a href="server.html">server</a> |</li>
+            <li> <a href="development.html">dezvoltare</a> |</li>
+            <li> <a href="references.html">bibliografie</a> «</li>
+        </ul>
+    </div>
+    <div class="wide">
+        <h2><a name="comunicare" href="#">comunicare</a></h2>
+   	    <p>Comunicarea dintre client şi server se realizează prin intermediul unui protocol care permite accesul utilizatorilor şi gestiunea elementelor de conţinut (utilizator, categorie, ştire) de către utilizatorii care au drepturi pentru respectivele acţiuni.</p>
+   	    <p>Am implementat protocolul în baza protocolului <span class="italic">TCP</span>, comunicarea între procesele server şi clienţi realizându-se prin intermediul soclurilor <span class="italic">BSD</span>.</p>
+        <a name="tab1"></a>
+        <h3>elemente de conţinut</h3>
+        <p>Protocolul gestionează trei elemente de conţinut: utilizatori, ştiri şi categorii.</p><p>Tabelul următor le prezintă, împreună cu acţiunile ce pot fi făcute asupra lor:</p>
+        <table class="table" cellpadding="1" cellspacing="0" border="1">
+        	<tr class="header">
+            	<td>elemente</td>
+                <td>semnificaţii</td>
+                <td>notaţii</td>
+                <td>date</td>
+                <td>limite</td>
+            	<td>observaţii</td>
+            </tr>
+        	<tr>
+            	<td rowspan="5">utilizator</td>
+                <td>identificator</td>
+                <td><span class="token">id</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>generat unic</td>
+            </tr>
+        	<tr>
+            	<td>nume</td>
+                <td><span class="token">username</span></td>
+                <td>string</td>
+                <td><span class="token">1-32</span></td>
+            	<td>unic</td>
+            </tr>
+        	<tr>
+            	<td>parolă</td>
+                <td><span class="token">password</span></td>
+                <td>string</td>
+                <td><span class="token">1-256</span></td>
+            	<td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>permisiuni</td>
+                <td><span class="token">permissions</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>momentan</td>
+            </tr>
+        	<tr>
+            	<td>moment</td>
+                <td><span class="token">moment</span></td>
+                <td>dată &amp; oră</td>
+                <td>&nbsp;</td>
+            	<td>generat</td>
+            </tr>
+        	<tr>
+            	<td rowspan="6">ştire</td>
+            	<td>identificator</td>
+                <td><span class="token">id</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>generat unic</td>
+            </tr>
+        	<tr>
+            	<td>nume</td>
+                <td><span class="token">name</span></td>
+                <td>string</td>
+                <td><span class="token">1-256</span></td>
+            	<td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>text</td>
+                <td><span class="token">text</span></td>
+                <td>string</td>
+                <td><span class="token">1-32768</span></td>
+            	<td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>categorie</td>
+                <td><span class="token">catid</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>să existe</td>
+            </tr>
+        	<tr>
+            	<td>propunător</td>
+                <td><span class="token">pid</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>să existe</td>
+            </tr>
+        	<tr>
+            	<td>moment</td>
+                <td><span class="token">moment</span></td>
+                <td>dată &amp; oră</td>
+                <td>&nbsp;</td>
+            	<td>generat</td>
+            </tr>
+
+        	<tr>
+            	<td rowspan="5">categorie</td>
+            	<td>identificator</td>
+                <td><span class="token">id</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>generat unic</td>
+            </tr>
+        	<tr>
+            	<td>nume</td>
+                <td><span class="token">name</span></td>
+                <td>string</td>
+                <td><span class="token">1-256</span></td>
+            	<td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>părinte</td>
+                <td><span class="token">catid</span></td>
+                <td>întreg</td>
+                <td><span class="token"><span class="underlined">+</span>∞</span></td>
+            	<td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>propunător</td>
+                <td><span class="token">pid</span></td>
+                <td>întreg</td>
+                <td><span class="token">0-∞</span></td>
+            	<td>să existe</td>
+            </tr>
+        	<tr>
+            	<td>moment</td>
+                <td><span class="token">moment</span></td>
+                <td>dată &amp; oră</td>
+                <td>&nbsp;</td>
+            	<td>generat</td>
+            </tr>
+       </table>
+       
+       <p align="center">Tabelul 1. <span class="bold">Elemente de conţinut</span></p>
+       
+		<hr />
+        
+        <a name="tab2"></a>
+        <h3>drepturi utilizatori conectaţi</h3>
+        <p>Am gândit drepturile diferit de clasicul <span class="token">0777</span> deoarece, spre deosebire de acesta, ele sunt incluse unele în altele. Astfel, dreptul devine un întreg şi, în varianta actuală a protocolului, împarte utilizatorii conectaţi în <span class="token">5</span> categorii.</p><p>Nu am limitat drepturile la o valoare superioară, din motive de posibilă extindere a funcţionalităţilor. Momentan, drepturile recunoscute şi acţiunile posibile sunt:
+</p>
+        <table class="table" cellpadding="1" cellspacing="0" border="1">
+        	<tr class="header">
+            	<td>elemente</td>
+                <td>acţiuni</td>
+                
+                <td>4</td>
+                <td>3</td>
+                <td>2</td>
+            	<td>1</td>
+            	<td>0</td>
+            </tr>
+        	<tr>
+            	<td rowspan="3">utilizator</td>
+                <td>modificare</td>
+                <td>•<sup>0</sup></td>
+                <td>•<sup>1</sup></td>
+                <td>•<sup>1</sup></td>
+                <td>•<sup>1</sup></td>
+                <td>•<sup>1</sup></td>
+            </tr>
+        	<tr>
+                <td>ştergere</td>
+                <td><sup>2</sup></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td>vizualizare</td>
+                <td>•</td>
+                <td>•<sup>3</sup></td>
+                <td>•<sup>3</sup></td>
+                <td>•<sup>3</sup></td>
+                <td>•<sup>3</sup></td>
+            </tr>
+        	<tr>
+            	<td rowspan="4">ştire</td>
+                <td>adăugare</td>
+                <td>•</td>
+                <td>•</td>
+                <td>•</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>modificare</td>
+                <td>•</td>
+                <td>•<sup>4</sup></td>
+                <td>•<sup>4</sup></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>ştergere</td>
+                <td>•</td>
+                <td>•<sup>4</sup></td>
+                <td>•<sup>4</sup></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>vizualizare</td>
+                <td>•</td>
+                <td>•</td>
+                <td>•</td>
+                <td>•</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td rowspan="4">categorie</td>
+                <td>adăugare</td>
+                <td>•</td>
+                <td>•</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>modificare</td>
+                <td>•</td>
+                <td>•<sup>4</sup></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>ştergere</td>
+                <td>•</td>
+                <td>•<sup>4</sup></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+                <td>vizualizare</td>
+                <td>•</td>
+                <td>•</td>
+                <td>•</td>
+                <td>•</td>
+                <td>&nbsp;</td>
+            </tr>            
+       </table> 
+       
+       <p><sup>0</sup> poate modifica parola oricărui utilizator şi poate modifica parola şi drepturile oricărui alt utilizator<br />
+       <sup>1</sup> poate modifica parola proprie<br /> 
+       <sup>2</sup> nu poate şterge utilizatorii, dar poate seta drepturi <span class="token">0</span><br />
+       <sup>3</sup> poate vizualiza doar contul propriu<br />
+       <sup>4</sup> le poate modifica sau şterge doar pe cele adăugate de el</p> 
+
+       <p align="center">Tabelul 2. <span class="bold">Drepturi utilizatori conectaţi</span></p>
+       
+		<hr />
+        
+        <h3>verificare date</h3>
+        
+        <p>Verificarea corectitudinii datelor se face la nivel de server, chiar dacă clientul poate avea măsuri suplimentare de siguranţă. Am aplicat acelaşi principiu ca la verificarea datelor în cadrul unui sit web realizat cu <span class="italic">Javascript</span> şi <span class="italic">PHP</span>: datele sunt verificate şi validate sau invalidate la nivelul formularului de către script, dar ele sunt validate în mod obligatoriu la preprocesare.</p>
+        
+        <hr />
+        
+        <h3>mod de funcţionare</h3>
+        
+        <p>Modul de funcţionare poate fi descris de automatul echivalent cu expresia <span class="token">(CVL*D)*</span>, unde:</p>
+        <ul type="disc">
+        	<li>
+            	<span class="token">C</span> = conectare
+            </li>
+            <li>
+            	<span class="token">V</span> = validare
+            </li>
+            <li>
+            	<span class="token">L</span> = lucru = cerere<sub>client→server</sub> + procesare<sub>server</sub> + răspuns<sub>server→client</sub>
+            </li>
+            <li>
+            	<span class="token">D</span> = deconectare
+            </li>
+        </ul>
+        
+        <a name="img1"></a>
+        <p><img src="data/automat.jpg" width="775" height="425" alt="automat" /></p>
+        
+       <p align="center">Imaginea 1. <span class="bold">Automat de funcţionare</span></p>
+        
+        <hr />
+        
+        <p>Se face distincţie între conectarea/deconectarea procesului client şi conectarea/deconectarea utilizatorului de pe acel proces client. Ca exemplu, deşi un bancomat este rar conectat/deconectat de la reţea (<span class="italic">proces</span>), el permite conectarea/deconectarea (<span class="italic">utilizator</span>) multor trecători. În cele ce urmează, vom avea în vedere conectarea şi deconectarea utilizatorului.</p>
+        
+        <p>Serverul primeşte de la client o comandă de conectare <span class="token">connuser</span> cu date valide, în urma căreia comunicarea are loc în baza identităţii utilizatorului. La primirea de către server a unei comenzi de deconectare, de tipul <span class="token">dconnuser</span> dinspre client, identitatea utilizatorului este pierdută, fără ca respectivul client să fie deconectat! Evident, la primirea a două comenzi care nu sunt succesive în expresie (de exemplu, două comenzi <span class="token">connuser</span> între care nu există nicio validare şi apoi nicio comandă <span class="token">dconnuser</span>), serverul nu permite reconectarea utilizatorului.</p> 
+
+		<p>Acest mod de funcţionare este avantajos pentru comunicări intense, în care utilizatorul nu se schimbă. Exemple de comunicare în această idee pot fi cititoarele de ştiri automate, care se actualizează periodic, precum şi clienţii cu interfaţă, care blochează accesul utilizatorului la funcţionalitatea internă.</p>
+
+        <hr />
+
+		<h3>precomunicare</h3>
+
+		<p>Înainte de fiecare cerere şi de fiecare răspuns, protocolul necesită transmiterea a <span class="italic">exact</span> <span class="token">10</span> octeţi, în care este scris aliniat la dreapta numărul de octeţi pe care este scrisă cererea sau este scris răspunsul propriu-zis, care urmează.</p>
+
+        <hr />
+
+		<h3>răspunsuri primite de la server</h3>
+
+		<p>Pentru toate cererile clientului, serverul poate întoarce unul din răspunsurile de mai jos. La acestea se adaugă răspunsurile specifice fiecărei cereri în parte. Răspunsurile de succes specifice cererilor înlocuiesc răspunsul implicit!</p>
+
+		<ul type="disc">
+        	<li><span class="token">success</span> este răspunsul implicit de succes, cu semnificaţia că serverul a procesat cererea fără probleme</li>
+            <li><span class="token">error|server|command</span> este un răspuns de eroare, cu semnificaţia că respectiva comandă este invalidă</li>
+            <li><span class="token">error|server|permissions</span> este un răspuns de eroare, cu semnificaţia că utilizatorul nu are drepturi suficiente</li>
+        </ul>
+        
+        <p>Prezentăm cererile protocolului, urmate de răspunsurile specifice. Notaţiile scrise <span class="italic">cursiv</span> vor fi înlocuite în comenzile reale cu valori cu respectivele semnificaţii.</p>
+
+        <hr />
+        
+        <h3>utilizatori</h3>
+        
+        <p>Cererea de înregistrare se poate realiza doar când nu există utilizator conectat la acel client. O înregistrare efectuată cu succes nu duce la conectarea utilizatorului nou, ci trebuie realizată o comandă separată de conectare.</p>
+        
+        <h4>înregistrare</h4>
+        <p><span class="token">reguser|<span class="italic">username</span>|<span class="italic">password</span></span></p>
+        <p>Înregistrează un utilizator cu o parolă şi, în caz de succes, întoarce identificatorul. Comanda oferă utilizatorului dreptul de valoare <span class="token">1</span>, de citire a ştirilor şi categoriilor. Se consideră validă dacă nu există deja un utilizator conectat.</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|username|invalid</span> este răspunsul de eroare, cu semnificaţia că numele de utilizator este invalid</li>
+        	<li><span class="token">error|password|invalid</span> este răspunsul de eroare, cu semnificaţia că parola este invalidă</li>
+        	<li><span class="token">success|<span class="italic">id</span></span> este răspunsul de succes, iar <span class="token">id</span> este identificatorul utilizatorului înregistrat</li>
+        </ul>
+
+        <h4>modificare</h4>
+        <p><span class="token">moduser|<span class="italic">id</span>|<span class="italic">password</span>|<span class="italic">permissions</span></span></p>
+        <p><span class="token">moduser|<span class="italic">id</span>|<span class="italic">password</span></span></p>
+        <p>Schimbă drepturile unui utilizator. Prima comandă se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> şi <span class="token">id</span> nu e identificatorul utilizatorului conectat. A doua comandă se consideră validă dacă există un utilizator conectat şi comanda se realizează numai asupra identificatorului propriu.</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">error|password|invalid</span> este răspunsul de eroare, cu semnificaţia că parola este invalidă</li>
+        	<li><span class="token">error|permissions|invalid</span> este răspunsul de eroare, cu semnificaţia că dreptul este invalidă</li>
+        </ul>
+        
+        <h4>ştergere</h4>
+        <p>Utilizatorii nu pot fi şterşi. Ei pot fi modificaţi la drepturi <span class="token">0</span>, caz în care nu mai au acces la ştiri şi categorii.</p>
+        <p>Am ales această soluţie pentru a păstra autorii ştirilor şi categoriilor intacţi, chiar dacă le sunt revocate drepturile.</p>
+
+        <h4>vizualizare</h4>
+        <p><span class="token">viewusers</span></p>
+        <p>Vizualizează utilizatorii şi, în caz de succes, întoarce identificatorul, numele şi drepturile fiecăruia. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span>. Am ales această limitare deoarece uneori se doreşte ca identitatea utilizatorilor să fie secretă.</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">success|<span class="italic">id<sub>1</sub></span>|<span class="italic">name<sub>1</sub></span>|<span class="italic">permissions<sub>1</sub></span>|<span class="italic">moment<sub>1</sub></span>|...|<span class="italic">id<sub>k</sub></span>|<span class="italic">name<sub>k</sub></span>|<span class="italic">permissions<sub>k</sub></span>|<span class="italic">moment<sub>k</sub></span></span>, unde <span class="token">k</span> este numărul de utilizatori înregistraţi</li>
+        </ul>
+        <p><span class="token">viewuser|<span class="italic">id</span></span></p>
+        <p>Vizualizează un anumit utilizator şi, în caz de succes, întoarce date despre acesta. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> sau există utilizator conectat cu acel <span class="token">id</span>.</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">success|<span class="italic">id</span>|<span class="italic">permissions</span></span> este răspunsul de succes, iar <span class="token">id</span> şi <span class="token">permissions</span> sunt identificatorul şi, respectiv, dreptul utilizatorului</li>
+        </ul>
+
+        <h4>conectare</h4>
+        <p><span class="token">connuser|<span class="italic">username</span>|<span class="italic">password</span></span></p>
+        <p>Conectează un utilizator cu o parolă şi, în caz de succes, răspunde cu identificatorul şi permisiunile sale. Se consideră validă dacă nu există un utilizator conectat.</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|username|invalid</span> este răspunsul de eroare, cu semnificaţia că numele de utilizator este invalid</li>
+        	<li><span class="token">error|password|invalid</span> este răspunsul de eroare, cu semnificaţia că parola este invalidă</li>
+        	<li><span class="token">success|<span class="italic">id</span>|<span class="italic">permissions</span></span> este răspunsul de succes, iar <span class="token">id</span> este identificatorul utilizatorului conectat şi <span class="token">permissions</span> este dreptul</li>
+        </ul>
+
+        <h4>deconectare</h4>
+        <p><span class="token">dconnuser</span></p>
+        <p>Deconectează un utilizator. Se consideră validă dacă există deja un utilizator conectat la client.</p>
+
+		<hr />
+
+		<h3>ştiri</h3>
+        
+        <p>Ştirile pot fi vizualizate de utilizatorii cu drepturi nenule şi gestionate de cei care au cel puţin dreptul <span class="token">2</span>.</p>
+        
+        <h4>adăugare</h4>
+        <p><span class="token">addnew|<span class="italic">name</span>|<span class="italic">text</span>|<span class="italic">catid</span></span></p>
+        <p>Adaugă o ştire şi, în caz de succes, răspunde cu identificatorul ştirii adăugate. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">2</span>, <span class="token">3</span> sau <span class="token">4</span>.</p>
+        <p>Pentru <span class="token">catid</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|name|invalid</span> este răspunsul de eroare, cu semnificaţia că numele este invalid</li>
+        	<li><span class="token">error|text|invalid</span> este răspunsul de eroare, cu semnificaţia că textul este invalid</li>
+        	<li><span class="token">error|catid|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul categoriei este invalid</li>
+        	<li><span class="token">success|<span class="italic">id</span></span> este răspunsul de succes, iar <span class="token">id</span> este identificatorul ştirii adăugate</li>
+		</ul>
+        
+        <h4>modificare</h4>
+        <p><span class="token">modnew|<span class="italic">id</span>|<span class="italic">name</span>|<span class="italic">text</span>|<span class="italic">catid</span></span></p>
+        <p>Modifică o ştire. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> sau dacă dreptul utilizatorului conectat e <span class="token">2</span>, <span class="token">3</span> sau <span class="token">4</span> şi ştirea a fost adăugată de el.</p>
+        <p>Pentru <span class="token">id</span> şi <span class="token">catid</span>, valorile trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">error|name|invalid</span> este răspunsul de eroare, cu semnificaţia că numele este invalid</li>
+        	<li><span class="token">error|text|invalid</span> este răspunsul de eroare, cu semnificaţia că textul este invalid</li>
+        	<li><span class="token">error|catid|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul categoriei este invalid</li>
+		</ul>
+
+        <h4>ştergere</h4>
+        <p><span class="token">delnew|<span class="italic">id</span></span></p>
+        <p>Şterge o ştire. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> sau dacă dreptul utilizatorului conectat e <span class="token">2</span>, <span class="token">3</span> sau <span class="token">4</span> şi ştirea a fost adăugată de el.</p>
+        <p>Pentru <span class="token">id</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+		</ul>
+        
+        <h4>vizualizare</h4>
+        <p><span class="token">viewnews|catid|r|t</span></p>
+        <p>Vizualizează ştirile şi, în caz de succes, întoarce nivelul, identificatorul, numele, textul, momentul şi identificatorul propunătorului. Se consideră validă dacă dreptul utilizatorului conectat e nenul.</p>
+        <p>Pentru <span class="token">catid</span>, doar valoarea unei categorii valide filtrează ştirile după acea categorie.</p>
+<p>Pentru <span class="token">r</span>, doar dacă e nenul, se vizualizează doar ştirile de pe primele <span class="token">r</span> nivele (pe nivelul <span class="token">1</span>, se află ştirile care sunt ataşate de categorii fără categorie părinte; pe nivelul <span class="token">2</span>, se află ştiri ataşate de categoriile ataşate de acestea etc.).</p>
+        <p>Pentru <span class="token">t</span>, doar o valoare strict pozitivă ordonează ştirile invers cronologic şi trunchează la ultimele <span class="token">t</span> ştiri per categorie.</p>
+        <p>Valorile <span class="token">0</span> pentru aceşti ultimi doi parametri nu restricţionează datele.</p>
+        <p>Prezentăm mai jos arborele de decizie pentru această comandă:</p>
+
+       <a name="img2"></a>
+        <p><img src="data/arbore.jpg" width="775" height="600" alt="arbore" /></p>
+       <p align="center">Imaginea 2. <span class="bold">Arbore de decizie</span></p>
+        
+        <hr />
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|r|invalid</span> este răspunsul de eroare, cu semnificaţia că parametrul pentru recursivitate este invalid</li>
+        	<li><span class="token">error|t|invalid</span> este răspunsul de eroare, cu semnificaţia că parametrul pentru trunchere este invalid</li>
+			<li><span class="token">success|<span class="italic">level<sub>1</sub></span>|<span class="italic">id<sub>1</sub></span>|<span class="italic">nume<sub>1</sub></span>|<span class="italic">text<sub>1</sub></span>|<span class="italic">moment<sub>1</sub></span>|<span class="italic">catid<sub>1</sub></span>|<span class="italic">pid<sub>1</sub></span>|...<br />|<span class="italic">level<sub>k</sub></span>|<span class="italic">id<sub>k</sub></span>|<span class="italic">nume<sub>k</sub></span>|<span class="italic">text<sub>k</sub></span>|<span class="italic">moment<sub>k</sub></span>|<span class="italic">catid<sub>k</sub></span>|<span class="italic">pid<sub>k</sub></span>|</span>, unde <span class="token">k</span> este numărul de ştiri.</li>
+		</ul>
+        <p><span class="token">viewnew|<span class="italic">id</span></span></p>
+        <p>Vizualizează o anumită ştire şi, în caz de succes, întoarce date despre aceasta. Se consideră validă dacă dreptul utilizatorului conectat e nenul.</p>
+<p>Pentru <span class="token">id</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">success|<span class="italic">id</span>|<span class="italic">name</span>|<span class="italic">text</span>|<span class="italic">moment</span>|<span class="italic">catid</span>|<span class="italic">pid</span></span> este răspunsul de succes</li>
+        </ul>
+        
+        <hr />
+
+		<h3>categorii</h3>
+        
+        <p>Categoriile pot fi vizualizate de utilizatorii cu drepturi nenule şi gestionate de cei care au cel puţin dreptul <span class="token">3</span>.</p>
+        
+        <h4>adăugare</h4>
+        <p><span class="token">addcat|<span class="italic">name</span>|<span class="italic">catid</span></span></p>
+        <p>Adaugă o ştire şi, în caz de succes, răspunde cu identificatorul ştirii adăugate. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">3</span> sau <span class="token">4</span>.</p>
+<p>Pentru <span class="token">catid</span>, doar dacă există deja, se asociază cu părintele respectiv!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|name|invalid</span> este răspunsul de eroare, cu semnificaţia că numele este invalid</li>
+        	<li><span class="token">error|catid|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul categoriei părinte este invalid</li>
+        	<li><span class="token">success|<span class="italic">id</span></span> este răspunsul de succes, iar <span class="token">id</span> este identificatorul categoriei adăugate</li>
+		</ul>
+        
+        <h4>modificare</h4>
+        <p><span class="token">modcat|<span class="italic">id</span>|<span class="italic">name</span>|<span class="italic">catid</span></span></p>
+        <p>Modifică o categorie. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> sau dacă dreptul utilizatorului conectat e <span class="token">3</span> sau <span class="token">4</span> şi categoria a fost adăugată de el.</p>
+<p>Pentru <span class="token">catid</span>, dacă există, se asociază cu părintele respectiv; dacă este <span class="token">0</span>, se detaşează categoria de la părinte, dacă exista; altfel, nu se asociază/detaşează.</p>
+<p>Pentru <span class="token">id</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">error|name|invalid</span> este răspunsul de eroare, cu semnificaţia că numele este invalid</li>
+        	<li><span class="token">error|catid|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul categoriei părinte este invalid</li>
+		</ul>
+
+        <h4>ştergere</h4>
+        <p><span class="token">delcat|<span class="italic">id</span></span></p>
+        <p>Şterge o categorie. Se consideră validă dacă dreptul utilizatorului conectat e <span class="token">4</span> sau dacă dreptul utilizatorului conectat e <span class="token">3</span> sau <span class="token">4</span> şi categoria a fost adăugată de el.</p>
+<p>Pentru <span class="token">id</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+		</ul>        
+
+        <h4>vizualizare</h4>
+        <p><span class="token">viewcats</span></p>
+        <p>Vizualizează categoriile şi, în caz de succes, întoarce pentru fiecare nivelul, identificatorul şi numele în arbore. Procedura de citire parcurge arborele categoriilor în <span class="italic">preordine</span>! Se consideră validă dacă dreptul utilizatorului conectat e nenul.</p>
+        <p>Prezentăm mai jos un exemplu de vizualizare cu această comandă:</p>
+
+        <a name="img3"></a>
+        <p><img src="data/categorii.jpg" alt="categorii" width="775" height="400" /></p>
+       <p align="center">Imaginea 3. <span class="bold">Exemplu de vizualizare</span></p>
+        
+        <hr />
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+			<li><span class="token">success|<span class="italic">level<sub>1</sub></span>|<span class="italic">id<sub>1</sub></span>|<span class="italic">nume<sub>1</sub></span>|<span class="italic">moment<sub>1</sub></span>|<span class="italic">pid<sub>1</sub></span>|...<br />|<span class="italic">level<sub>k</sub></span>|<span class="italic">id<sub>k</sub></span>|<span class="italic">nume<sub>k</sub></span>|<span class="italic">moment<sub>k</sub></span>|<span class="italic">pid<sub>k</sub></span>|</span>, unde <span class="token">k</span> este numărul de categorii.</li>
+		</ul>
+        <p><span class="token">viewcat|<span class="italic">id</span></span></p>
+        <p>Vizualizează o anumită categorie şi, în caz de succes, întoarce date despre aceasta, inclusiv strămoşii ei. Se consideră validă dacă dreptul utilizatorului conectat e nenul.</p>
+<p>Pentru <span class="token">id</span>, valoarea trebuie să existe!</p>
+        <p>Răspunsuri posibile:</p>
+        <ul type="disc">
+        	<li><span class="token">error|id|invalid</span> este răspunsul de eroare, cu semnificaţia că identificatorul este invalid</li>
+        	<li><span class="token">success|<span class="italic">id</span>|<span class="italic">name</span>|<span class="italic">text</span>|<span class="italic">moment</span>|<span class="italic">pid</span>|<span class="italic">catid<sub>1</sub></span>|<span class="italic">catname<sub>1</sub></span>|...<br />|<span class="italic">catid<sub>k</sub></span>|<span class="italic">catname<sub>k</sub></span>|</span> este răspunsul de succes, unde <span class="token">k</span> este numărul de strămoşi, iar <span class="token">catid<sub>i</sub></span> e identificatorul categoriei strămoş de gradul <span class="token">i</span> (cel de grad <span class="token">1</span> e categoria de care este ataşată categoria cu identificatorul <span class="token">id</span>; cel de grad <span class="token">2</span> e categoria de care este ataşat strămoşul de grad <span class="token">1</span> etc.). Categoria poate să nu aibă strămoşi, caz în care nu se afişează strămoşii.</li>
+        </ul>
+		<hr />
+		<h3>exemplu de comunicare</h3>
+        <p>Prezentăm mai jos un model de comunicare între client şi server, în care am marcat cu • sfârşitul mesajului:</p>
+        <div class="pre token"><span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20•<br />connuser|vladm|vladm•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11•<br />success|1|4•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8•<br />viewcats•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;963•<br />success|0|23|phelps|2010-01-05 16:46:36|1|0|31|salutg|2010-01-12 22:33:12|5|0|1|sport|2010-01-05 16:41:39|1|1|8|fotbal|2010-01-05 16:43:28|1|2|12|beckham|2010-01-05 16:44:32|1|2|9|hagi|2010-01-05 16:44:00|1|2|10|ilie|2010-01-05 19:20:28|1|2|11|ronaldo|2010-01-05 16:44:15|1|1|2|gimnastica|2010-01-05 16:42:01|1|2|4|rezistenta|2010-01-05 16:42:27|1|3|6|bellu|2010-01-05 16:43:10|1|3|7|bitang|2010-01-05 16:43:16|1|3|5|nadia|2010-01-05 16:42:58|1|2|3|viteza|2010-01-05 16:42:18|1|1|19|inot|2010-01-05 16:45:34|1|2|20|campioni olimpici|2010-01-05 16:45:54|1|3|22|phelps|2010-01-05 16:46:24|1|1|13|tenis|2010-01-05 16:44:40|1|2|18|agassi|2010-01-05 16:45:17|1|2|14|federer|2010-01-05 16:44:51|1|2|15|nadal|2010-01-05 16:44:56|1|2|16|pavel|2010-01-05 16:45:03|1|0|24|televiziuni|2010-01-05 16:47:27|1|1|25|stiri|2010-01-05 16:48:04|1|2|27|cnbc|2010-01-05 16:48:21|1|2|26|cnn|2010-01-05 16:48:16|1|2|28|nbc|2010-01-05 16:48:24|1|2|30|realitatea tv|2010-01-05 16:48:59|1•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17•<br />addcat|sportivi|0•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10•<br />success|35•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10•<br />viewcat|35•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41•<br />success|35|sportivi|2010-01-13 00:12:38|1•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72•<br />modnew|10|Real Madrid|Santiago Bernabeu are 3 jucatori in plus in lot|35•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7•<br />success•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14•<br />viewnews|0|0|0•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;808•<br />success|0|25|de la 2|klghfdl|2010-01-05 19:56:07|1|1|0|23|cos|gigel|2010-01-05 19:36:33|1|1|0|22|vlad|jfdlk|2010-01-05 19:32:28|1|1|0|5|sport1|fgfgdgfdgdf|2010-01-05 17:05:13|1|1|0|4|sport2|hgfjkddk|2010-01-05 17:05:03|1|1|0|3|sport3|gfdhk|2010-01-05 17:04:45|1|1|1|7|gim2|hgfjkdjk|2010-01-05 17:06:19|2|1|1|6|gim3|gtfdgdf|2010-01-05 17:05:43|2|1|3|26|salut|saluty|2010-01-07 13:08:34|5|1|3|24|fdfksj|45|2010-01-05 19:38:55|5|1|3|11|bellu1|gfgdgf|2010-01-05 17:07:42|6|1|3|9|bellu3|fgfdgfd|2010-01-05 17:07:13|6|1|1|16|ten1|gfdgdf|2010-01-05 17:09:11|13|30|1|15|ten2|gfgfdg|2010-01-05 17:09:05|13|2|2|21|salut|g|2010-01-05 19:41:29|20|1|0|19|tv1|fdfdfd|2010-01-05 18:03:36|24|1|2|20|cnn1|fggdf|2010-01-05 18:04:15|26|1|0|10|Real Madrid|Santiago Bernabeu are 3 jucatori in plus in lot|2010-01-13 00:15:23|35|1•<br /><br />
+                                <span class="bold">client</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9•<br />dconnuser•<br /><br />
+                                <span class="bold">server</span>:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7•<br />success•</div>
+		<hr />        
+        <p align="right" class="top"><a href="#">sus ↑</a></p>
+    </div>
+</body>
+</html>

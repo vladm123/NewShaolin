@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="copyright" content="(c) 2009 2010 Codrin Diţu &amp; Vlad Manea" />
+        <meta name="description" content="documentaţia proiectului newshaolin, realizat şi promovat ca proiect final la disciplina Reţele de Calculatoare de studenţii Codrin Diţu &amp; Vlad Manea" />
+		<meta name="author" content="Vlad Manea" />
+		<meta name="keywords" content="proiect, Reţele de Calculatoare, ştiri, newshaolin, NewsC, NewsS, Codrin Diţu, Vlad Manea, Facultatea de Informatică, Iaşi, România, FII" />
+		<meta name="robots" content="all, index, follow" />
+		<title>newshaolin | soluţie</title>
+		<link rel="stylesheet" href="style/index.css" />
+</head>
+<body>
+    <div class="wide">
+		<h1><a href="index.html">new<span class="shaolin">shaolin</span></a></h1>
+	</div>
+    <div class="outer">
+      	<img src="data/solution.jpg" alt="image" width="950" height="250" />        
+	</div>
+   	<div class="narrow">
+        <ul type="disc">
+            <li>» <a href="index.html">acasă</a> |</li>
+            <li> <a href="problem.html">problemă</a> →</li>
+            <li> <span class="here">soluţie</span> |</li>
+            <li> <a href="communication.html">comunicare</a> |</li>
+            <li> <a href="client.html">client</a> &amp;</li>
+            <li> <a href="server.html">server</a> |</li>
+            <li> <a href="development.html">dezvoltare</a> |</li>
+            <li> <a href="references.html">bibliografie</a> «</li>
+
+        </ul>
+    </div>
+    <div class="wide">
+        <h2>soluţie</h2>
+        <p>Am modelat un protocol de comunicare între un server şi mai mulţi clienţi care accesează şi gestionează conţinutul prin intermediul serverului. Am implementat apoi un client şi un server funcţionale pe un sistem de operare <span class="italic">Linux/UNIX</span>, care comunică via acest protocol.</p>
+        <hr />
+        <h3>soluţie server</h3>
+        <p>Serverul trebuie să permită tratarea simultană a cererilor mai multor clienţi, fapt pentru care am ales soluţia unui server concurent implementat în limbajul <span class="italic">C</span>.</p>
+        <p>Ca soluţie pentru baza de date relaţională, în care se reţin elementele de conţinut, am ales tehnologia <span class="italic">MySQL</span>.</p>
+        <hr />
+        <h3>soluţie client</h3>
+        <p>Clientul asigură afişarea într-un mod plăcut a elementelor de conţinut, dar facilitează şi gestiunea acestora. Am implementat clientul în limbajul <span class="italic">C++</span> şi i-am realizat o interfaţă grafică, implementată prin intermediul utilitarului <span class="italic">Qt</span>.</p>
+        <hr />
+        <p align="right" class="top"><a href="#">sus ↑</a></p>
+    </div>
+    
+    
+</body>
+</html>

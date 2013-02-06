@@ -1,0 +1,326 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="copyright" content="(c) 2009 2010 Codrin Diţu &amp; Vlad Manea" />
+        <meta name="description" content="documentaţia proiectului newshaolin, realizat şi promovat ca proiect final la disciplina Reţele de Calculatoare de studenţii Codrin Diţu &amp; Vlad Manea" />
+		<meta name="author" content="Vlad Manea" />
+		<meta name="keywords" content="proiect, Reţele de Calculatoare, ştiri, newshaolin, NewsC, NewsS, Codrin Diţu, Vlad Manea, Facultatea de Informatică, Iaşi, România, FII" />
+		<meta name="robots" content="all, index, follow" />
+		<title>newshaolin | dezvoltare</title>
+		<link rel="stylesheet" href="style/index.css" />
+</head>
+<body>
+    <div class="wide">
+		<h1><a href="index.html">new<span class="shaolin">shaolin</span></a></h1>
+	</div>
+    <div class="outer">
+      	<img src="data/development.jpg" alt="image" width="950" height="250" />        
+	</div>
+   	<div class="narrow">
+        <ul type="disc">
+            <li>» <a href="index.html">acasă</a> |</li>
+            <li> <a href="problem.html">problemă</a> →</li>
+            <li> <a href="solution.html">soluţie</a> |</li>
+            <li> <a href="communication.html">comunicare</a> |</li>
+            <li> <a href="client.html">client</a> &amp;</li>
+            <li> <a href="server.html">server</a> |</li>
+            <li> <span class="here">dezvoltare</span> |</li>
+            <li> <a href="references.html">bibliografie</a> «</li>
+        </ul>
+    </div>
+    <div class="wide">
+        <h2>dezvoltare</h2>
+        <p>În realizarea proiectului, am parcurs etapele de:</p>
+        <ul type="disc">
+        	<li>documentare</li>
+            <li>proiectare</li>
+            <li>implementare</li>
+            <li>testare</li>
+        </ul>
+        <p>Ultimele două etape au fost fragmentate şi intercalate.</p>
+        <hr />
+        <h3>documentare</h3>
+        <p>În etapa de documentare, am consultat materialele din <a href="references.html" target="_blank">bibliografie</a> şi am adunat datele necesare pentru realizarea proiectului. S-a dovedit, aşa cum era de aşteptat, că această etapă s-a extins asupra întregului timp de dezvoltare a proiectului, în special în cazul implementării clientului.</p>
+        <h3>proiectare</h3>
+        <p>Etapa de proiectare a constat în modelarea bazei de date şi confruntarea datelor stocate cu restricţiile interfeţei lui Codrin. Am ajuns la concluzia că, deşi modelul permite o descendenţă infinită a categoriilor, în practică este indicat ca descendenţa să fie limitată programatic. În aceeaşi etapă am modelat protocolul, această parte continuând cu mici modificări în decursul implementării.</p>
+        <h3>implementare</h3>
+        <p>Implementarea a constat în realizarea efectivă a aplicaţiilor, clientul fiind, în mod natural, defazat faţă de server. În primele zile, Vlad a implementat serverul şi un <a href="./sources/client/c.c">client mostră</a> cu care a fost testat serverul, urmând ca aplicaţia client reală, implementată de Codrin, să aibă deja un server funcţional pe care să fie testată.</p>
+        <h3>testare</h3>
+        <p>Testarea funcţionalităţilor serverului a fost realizată prin comenzi de:</p>
+        <ul type="disc">
+        	<li><span class="italic">interacţiune</span>: procedurile de conectare/deconectare ale clienţilor</li>
+        	<li><span class="italic">sondaj</span>: selectări la întâmplare din baza de date</li>
+            <li><span class="italic">alterare</span>: blocuri de adăugări, modificări şi ştergeri, urmate de verificarea rezultatului final cu cel aşteptat.</li>
+        </ul>
+        <a name="tab1"></a>
+        <p>Prezentăm în cele ce urmează un astfel de test asupra serverului, efectuat la începutul etapei de testare:</p>
+        
+       <table class="table" cellpadding="1" cellspacing="0" border="1">
+        	<tr class="header">
+            	<td>element</td>
+            	<td>tentativă cauză</td>
+                <td>efect aşteptat</td>
+                <td>efect realizat</td>
+                <td>concluzie</td>
+                <td>soluţie</td>
+                
+            </tr>
+        	<tr>
+            	<td rowspan="13" valign="top">utilizator</td>
+            	<td valign="top">înregistrez nou</td>
+                <td valign="top">trimite succes şi introduce în baza de date</td>
+                <td valign="top">trimite succes şi introduce în baza de date</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">înregistrez cu nume existent</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">aruncă eroare fatală</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/userssql.c" class="token">userssql.c</a> cazul când deja există</td>
+            </tr>
+        	<tr>
+            	<td valign="top">înregistez imediat după ce m-am conectat</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">conectez cu nume inexistent</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite <span class="italic">altă</span> eroare</td>
+                <td align="center"><img alt="atentionare" src="style/warning.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/usersc.c" class="token">usersc.c</a> cazul când nu există</td>
+            </tr>
+        	<tr>
+            	<td valign="top">conectez cu date corecte</td>
+                <td valign="top">trimite succes şi conectează</td>
+                <td valign="top">trimite mesaj <span class="italic">eronat</span> de succes şi conectează</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/usersc.c" class="token">usersc.c</a> răspunsul</td>
+            </tr>
+        	<tr>
+            	<td valign="top">conectez cu date corecte imediat după operaţia dinainte</td>
+                <td valign="top">trimite succes şi conectează</td>
+                <td valign="top">trimite succes şi conectează</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">deconectez după conectare</td>
+                <td valign="top">trimite succes şi deconectează</td>
+                <td valign="top">trimite succes şi deconectează</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">deconectez fără a fi conectat</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific utilizatorul conectat, având drept <span class="token">4</span>, cu prima comandă</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific alt utilizator, având drept <span class="token">4</span>, cu prima comandă</td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific alt utilizator, neavând drept <span class="token">4</span>, cu prima comandă</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific alt utilizator, neavând drept <span class="token">4</span>, cu a doua comandă</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific utilizatorul conectat, neavând drept <span class="token">4</span>, cu a doua comandă</td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td valign="top">&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td rowspan="9" valign="top">categorie</td>
+            	<td valign="top">adaug, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">adaug, având drepturi suficiente</td>
+                <td valign="top">trimite succes şi adaugă</td>
+                <td valign="top">trimite succes şi adaugă</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">construiesc o pădure de categorii asemănătoare cu <sup><a href="communication.html#img3" target="_blank">3</a></sup></td>
+                <td valign="top">trimite mesaje de succes şi adaugă</td>
+                <td valign="top">trimite mesaje de succes şi adaugă</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific, având drepturi suficiente, o categorie neadăugată de mine</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific, având drepturi suficiente, o categorie adăugată de mine </td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td valign="top">aruncă eroare fatală</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/catssql.c" class="token">catsssql.c</a> cazul când se poate adăuga</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, având drepturi suficiente, o categorie neadăugată de mine</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, având drepturi suficiente, o categorie adăugată de mine </td>
+                <td valign="top">trimite succes şi şterge</td>
+                <td valign="top">trimite eroare şi şterge</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/catssql.c" class="token">catsssql.c</a> cazul când se poate şterge</td>
+            </tr>
+        	<tr>
+            	<td rowspan="10" valign="top">ştire</td>
+            	<td valign="top">adaug, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">adaug, având drepturi suficiente, la categorie inexistentă</td>
+                <td valign="top">trimite succes şi adaugă</td>
+                <td valign="top">trimite succes şi adaugă</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">adaug, având drepturi suficiente, la categorie existentă</td>
+                <td valign="top">trimite succes şi adaugă</td>
+                <td valign="top">trimite eroare şi adaugă</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/newssql.c" class="token">newsssql.c</a> cazul când se poate adăuga</td>
+            </tr>
+        	<tr>
+            	<td valign="top">construiesc o pădure de ştiri asociată cu o pădure de categorii asemănătoare cu <sup><a href="communication.html#img3" target="_blank">3</a></sup></td>
+                <td valign="top">trimite mesaje de succes şi adaugă</td>
+                <td valign="top">trimite mesaje de succes şi adaugă</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+            
+        	<tr>
+            	<td valign="top">modific, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific, având drepturi suficiente, o ştire neadăugată de mine</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">modific, având drepturi suficiente, o ştire adăugată de mine </td>
+                <td valign="top">trimite succes şi modifică</td>
+                <td valign="top">trimite eroare şi modifică</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/newssql.c" class="token">newsssql.c</a> cazul când se poate modifica</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, neavând drepturi suficiente</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, având drepturi suficiente, o ştire neadăugată de mine</td>
+                <td valign="top">trimite eroare</td>
+                <td valign="top">trimite eroare</td>
+                <td align="center"><img alt="succes" src="style/success.png" width="16" height="16" /></td>
+                <td>&nbsp;</td>
+            </tr>
+        	<tr>
+            	<td valign="top">şterg, având drepturi suficiente, o ştire adăugată de mine </td>
+                <td valign="top">trimite succes şi şterge</td>
+                <td valign="top">trimite eroare şi şterge</td>
+                <td align="center"><img alt="eroare" src="style/error.png" width="16" height="16" /></td>
+                <td valign="top">refac în <a href="./sources/server/newssql.c" class="token">newsssql.c</a> cazul când se poate şterge</td>
+            </tr>
+		</table>
+       
+       <p align="center">Tabelul 1. <span class="bold">Exemplu de test</span></p>
+       
+		<hr />   
+        
+        <h3>planificare în timp</h3>
+        <p>Prezentăm planificarea orientativă a etapelor de realizare, precum şi intensitatea lucrului în cadrul acestor etape:</p>
+       <a name="img1"></a>
+        <p><img src="data/planificare.jpg" width="775" height="580" alt="planificare" /></p>
+       <p align="center">Imaginea 1. <span class="bold">Planificare orientativă în timp</span></p>
+        
+        <hr />
+        
+        <h3>probleme întâmpinate &amp; soluţii propuse</h3>
+        <p>La server, cele mai dificile probleme şi rezolvările lor au fost:</p>
+        <ul type="disc">
+        	<li><span class="italic">alocarea unor zone de dimensiuni neconstante de memorie, pentru datele transmise ca răspuns clientului</span><br />am întâmpinat această problemă prin realizarea etapei de precomunicare</li>
+        	<li><span class="italic">parcurgerea tuturor categoriilor copil şi a categoriilor părinte</span><br />am rezolvat această cerinţă prin implementarea a două funcţii recursive care accesează baza de date</li>
+        </ul>
+        <p>La client, cele mai grele sarcini şi soluţiile lor au fost:</p>
+        <ul type="disc">
+        	<li><span class="italic">integrarea interfeţei şi comunicării cu serverul într-o aplicaţie unitară</span><br />am implementat obiect clientul şi am trecut elegant peste această dificultate<br /></li>
+        	<li><span class="italic">ergonomia interfeţei client</span><br />am analizat situri de ştiri renumite de pe internet în calitate de vizitator</li>
+        </ul>
+        
+        <hr />
+        <p align="right" class="top"><a href="#">sus ↑</a></p>
+    </div>
+</body>
+</html>
